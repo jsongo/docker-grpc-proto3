@@ -1,4 +1,3 @@
-# FROM golang:1.6
 FROM docker.io/grpc/python:0.11-onbuild
 MAINTAINER jsongo@qq.com
 
@@ -33,6 +32,6 @@ RUN git clone https://github.com/grpc/grpc && \
 RUN pip install -r requirements.txt
 #RUN GRPC_PYTHON_BUILD_WITH_CYTHON=1 pip install .
 
-RUN make && make install
+RUN ./configure && make && make install
 RUN cd .. && rm -rf grpc
 
