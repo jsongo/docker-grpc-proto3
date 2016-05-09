@@ -27,4 +27,12 @@ RUN \
   cd - && \
   rm -rf protobuf-3.0.0-beta-2
 
-CMD ["python", ]
+RUN git clone https://github.com/grpc/grpc && \
+    cd grpc && \
+    git submodule update --init
+RUN pip install -r requirements.txt
+RUN GRPC_PYTHON_BUILD_WITH_CYTHON=1 pip install .
+
+RUN make && make install
+RUN cd .. && rm -rf grpc
+
