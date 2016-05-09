@@ -27,3 +27,4 @@ RUN \
   cd - && \
   rm -rf protobuf-3.0.0-beta-2
 
+CMD ["python", ]
