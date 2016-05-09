@@ -1,4 +1,4 @@
-FROM docker.io/grpc/python:0.11-onbuild
+FROM docker.io/grpc/python:0.11
 MAINTAINER jsongo@qq.com
 
 RUN \
@@ -29,9 +29,10 @@ RUN \
 RUN git clone https://github.com/grpc/grpc && \
     cd grpc && \
     git submodule update --init
-RUN pip install -r requirements.txt
-#RUN GRPC_PYTHON_BUILD_WITH_CYTHON=1 pip install .
+#RUN pip install -r requirements.txt
+# RUN cd grpc && GRPC_PYTHON_BUILD_WITH_CYTHON=1 pip install .
+#RUN ls -lh
 
-RUN ./configure && make && make install
-RUN cd .. && rm -rf grpc
+RUN cd grpc && make -j4 && make install
+#RUN cd .. && rm -rf grpc
 
