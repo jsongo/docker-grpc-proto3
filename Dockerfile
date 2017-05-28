@@ -1,4 +1,4 @@
-FROM docker.io/grpc/python:0.11
+FROM grpc/go
 MAINTAINER jsongo@qq.com
 
 RUN \
@@ -14,25 +14,20 @@ RUN \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN \
-  wget https://codeload.github.com/google/protobuf/tar.gz/v3.0.0-beta-2 && \
-  tar xvzf v3.0.0-beta-2 && \
-  rm v3.0.0-beta-2 && \
-  cd protobuf-3.0.0-beta-2 && \
+  wget https://codeload.github.com/google/protobuf/tar.gz/v3.3.0 && \
+  tar xvzf v3.3.0 && \
+  rm v3.3.0 && \
+  cd protobuf-3.3.0 && \
   ./autogen.sh && \
   ./configure --prefix=/usr && \
   make && \
   make check && \
   make install && \
   cd - && \
-  rm -rf protobuf-3.0.0-beta-2
+  rm -rf protobuf-3.3.0
 
 RUN git clone https://github.com/grpc/grpc && \
     cd grpc && \
     git submodule update --init
-#RUN pip install -r requirements.txt
-# RUN cd grpc && GRPC_PYTHON_BUILD_WITH_CYTHON=1 pip install .
-#RUN ls -lh
 
 RUN cd grpc && make -j4 && make install
-#RUN cd .. && rm -rf grpc
-
